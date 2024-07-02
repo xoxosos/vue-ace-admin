@@ -5,7 +5,8 @@
   "type": "module",
   "homepage": "https://github.com/xoxosos/vue-ace-admin#readme",
   "engines": {
-    "node": "18.x"
+    "node": ">=18",
+    "pnpm": ">=8"
   },
   "packageManager": "pnpm@8.9.1",
   "keywords": [
@@ -23,6 +24,10 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "lint:eslint": "eslint . --fix",
+    "lint:prettier": "prettier --write src/**/*.{ts,vue,js,tsx,jsx,json}",
+    "lint:stylelint": "stylelint .",
+    "lint:lint-staged": "lint-staged",
     "format": "prettier --write src/",
     "preinstall": "npx only-allow pnpm",
     "postinstall": "npx simple-git-hooks"
@@ -32,7 +37,7 @@
     "@vueuse/core": "^10.7.1",
     "@vueuse/motion": "^2.1.0",
     "ant-design-vue": "~4.1.2",
-    "axios": "^1.6.8",
+    "axios": "^1.7.2",
     "dayjs": "^1.11.10",
     "echarts": "^5.5.0",
     "gsap": "^3.12.4",
@@ -41,10 +46,10 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
-    "vue": "^3.4.21",
+    "vue": "^3.4.30",
     "vue-echarts": "latest",
     "vue-i18n": "^9.9.0",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.4.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.4.4",
@@ -63,15 +68,24 @@
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/eslint-config-typescript": "^13.0.0",
     "@vue/tsconfig": "^0.5.1",
-    "eslint": "^8.57.0",
-    "eslint-plugin-vue": "^9.24.1",
+    "eslint": "^9.5.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import-x": "^0.5.2",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-vue": "^9.26.0",
     "fast-glob": "3.2.11",
     "lint-staged": "^15.2.2",
     "npm-run-all2": "^6.1.1",
     "prettier": "^3.2.5",
-    "sass": "^1.74.1",
+    "prettier-stylelint": "^0.4.2",
+    "sass": "^1.77.6",
+    "stylelint": "^16.6.1",
+    "stylelint-config-recess-order": "^5.0.1",
+    "stylelint-config-recommended-vue": "^1.5.0",
+    "stylelint-config-standard-scss": "^13.1.0",
     "simple-git-hooks": "^2.11.1",
     "typescript": "^5.3.3",
+    "typescript-eslint": "^7.15.0",
     "unplugin-auto-import": "^0.17.5",
     "unplugin-icons": "^0.16.6",
     "unplugin-vue-components": "^0.26.0",
@@ -82,9 +96,12 @@
     "vue-tsc": "^2.0.11"
   },
   "lint-staged": {
-    "*.{js,ts,tsx,jsx,vue}": [
-      "eslint --fix",
-      "prettier --write"
+    "src/**/*.{ts,vue,js,tsx,jsx,json}": [
+      "pnpm lint",
+      "pnpm lint:prettier"
+    ],
+    "src/**/*.{scss,vue}": [
+      "pnpm lint:stylelint"
     ],
     "package.json": [
       "prettier --write"

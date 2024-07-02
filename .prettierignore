@@ -1,0 +1,10 @@
+dist
+build
+node_modules
+public
+.husky
+html
+.vscode
+.idea
+*.sh
+*.md
